@@ -1,0 +1,6 @@
+anthropic>=0.40
+openai>=1.0
+python-dotenv>=1.0     # load ANTHROPIC_API_KEY / OPENAI_API_KEY etc. from a .env file
+pypdfium2>=4.30     # PDF rasterisation, pip-only, no system dependencies
+pdfplumber>=0.11    # text-layer probe for provenance checks
+Pillow>=10.0        # downscale to the vision API's native resolution
