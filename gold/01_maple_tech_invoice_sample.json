@@ -1,0 +1,85 @@
+{
+  "source_file": "01_maple_tech_invoice_sample.pdf",
+  "labeler": "manual",
+  "input_kind": "pdf_text_layer",
+  "is_invoice": true,
+  "fields": {
+    "vendor_name": {
+      "value": "Maple Tech Solutions Inc.",
+      "accept": ["Maple Tech Solutions", "MAPLE TECH SOLUTIONS INC."],
+      "status": "present"
+    },
+    "invoice_number": { "value": "INV-2026-0842", "status": "present" },
+    "invoice_date": { "value": "2026-07-15", "status": "present" },
+    "due_date": { "value": "2026-08-14", "status": "present" },
+    "currency": { "value": "CAD", "status": "present" },
+    "subtotal": { "value": "2450.00", "status": "present" },
+    "total_amount": { "value": "2816.89", "status": "present" }
+  },
+  "taxes": [
+    {
+      "label": "GST",
+      "accept_labels": ["GST (5%)"],
+      "rate": "0.05",
+      "amount": "122.50",
+      "base": "subtotal"
+    },
+    {
+      "label": "QST",
+      "accept_labels": ["QST (9.975%)"],
+      "rate": "0.09975",
+      "amount": "244.39",
+      "base": "subtotal"
+    }
+  ],
+  "line_items_status": "present",
+  "line_items": [
+    {
+      "index": 0,
+      "sku": null,
+      "description": "AI workstation setup and configuration",
+      "qty": "1",
+      "qty_unit": null,
+      "unit_price": "1650.00",
+      "amount": "1650.00"
+    },
+    {
+      "index": 1,
+      "sku": null,
+      "description": "Secure data migration service",
+      "qty": "4",
+      "qty_unit": "hrs",
+      "unit_price": "150.00",
+      "amount": "600.00"
+    },
+    {
+      "index": 2,
+      "sku": null,
+      "description": "Priority support package",
+      "qty": "1",
+      "qty_unit": null,
+      "unit_price": "200.00",
+      "amount": "200.00"
+    }
+  ],
+  "expected_validations": {
+    "line_qty_times_price": "pass",
+    "lines_sum_to_subtotal": "pass",
+    "subtotal_plus_tax_equals_total": "pass",
+    "tax_rate_times_base": "pass",
+    "invoice_date_before_due_date": "pass"
+  },
+  "expected_review": {
+    "severity": "clean",
+    "must_not_block": true,
+    "expected_notes": []
+  },
+  "notes": [
+    "MULTI-TAX CASE: two separate taxes (GST 5% and QST 9.975%), both levied on the pre-tax subtotal per current Quebec practice. A scalar tax_amount field cannot represent this; taxes must be a list. A pipeline that captures only one tax will fail subtotal_plus_tax_equals_total.",
+    "ROUNDING TRAP (second instance): 2450.00 x 0.09975 = 244.3875 exactly. The invoice shows 244.39, requiring ROUND_HALF_UP. ROUND_HALF_EVEN yields 244.38. Together with the Atlas sales tax this gives two independent documents pinning half-up, which is strong enough to assert in a unit test.",
+    "UNIT-BEARING QUANTITY: the migration line reads '4 hrs' in the Qty column. Split into qty '4' plus qty_unit 'hrs' so that 4 x 150.00 = 600.00 still validates. Storing '4 hrs' as a single string breaks the arithmetic check.",
+    "Line items have no SKU column, so line matching must fall back to description token-set ratio. sku is explicitly null rather than omitted.",
+    "Net 30 from invoice date 2026-07-15 gives exactly 2026-08-14, matching the stated due date. This is a soft cross-check worth running, but a mismatch should warn rather than block since vendors vary on business-day conventions.",
+    "Both vendor and customer are in Montreal, and the customer address contains an accented character (Rene-Levesque). Encoding must survive the text path without mojibake."
+  ]
+}

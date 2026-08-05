@@ -1,0 +1,178 @@
+{
+  "schema_version": "1.0",
+  "doc": {
+    "doc_id": "sha256:be4bc6fda0a942e7241caa5675177151a5350c9680c6563f26037afa40f61a97",
+    "source_file": "04_nordlicht_labs_invoice_sample.pdf",
+    "page_count": 1,
+    "input_kind": "pdf_text_layer",
+    "text_layer": true,
+    "is_invoice": true
+  },
+  "fields": {
+    "vendor_name": {
+      "value": "Nordlicht Labs GmbH",
+      "status": "present",
+      "source_text": "Nordlicht Labs GmbH",
+      "page": 1
+    },
+    "invoice_number": {
+      "value": "NL-40851",
+      "status": "present",
+      "source_text": "Invoice no. NL-40851",
+      "page": 1
+    },
+    "invoice_date": {
+      "value": "2026-07-30",
+      "status": "present",
+      "source_text": "Invoice date 2026-07-30",
+      "page": 1
+    },
+    "due_date": {
+      "value": null,
+      "status": "stated_absent",
+      "source_text": "No due date is specified on this document",
+      "page": 1
+    },
+    "currency": {
+      "value": "EUR",
+      "status": "present",
+      "source_text": "Currency EUR",
+      "page": 1
+    },
+    "subtotal": {
+      "value": "980.00",
+      "status": "present",
+      "source_text": "Subtotal \u20ac980.00",
+      "page": 1
+    },
+    "total_amount": {
+      "value": "1176.00",
+      "status": "present",
+      "source_text": "Total amount \u20ac1,176.00",
+      "page": 1
+    }
+  },
+  "taxes": [
+    {
+      "label": "VAT",
+      "rate": "20%",
+      "amount": "196.00",
+      "base": "subtotal",
+      "source_text": "VAT (20%) \u20ac196.00"
+    }
+  ],
+  "line_items_status": "absent_by_design",
+  "line_items": [],
+  "validations": [
+    {
+      "check": "is_invoice",
+      "result": "pass",
+      "scope": "document",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.vendor_name",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.invoice_number",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.invoice_date",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.currency",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.total_amount",
+      "severity": null
+    },
+    {
+      "check": "line_qty_times_price",
+      "result": "skipped",
+      "scope": "document",
+      "severity": null,
+      "reason": "line_items_status=absent_by_design"
+    },
+    {
+      "check": "lines_sum_to_subtotal",
+      "result": "skipped",
+      "scope": "document",
+      "severity": null,
+      "reason": "line_items_status=absent_by_design"
+    },
+    {
+      "check": "tax_rate_times_base",
+      "result": "pass",
+      "scope": "tax[0]",
+      "expected": "196.00",
+      "actual": "196.00",
+      "delta": "0.00",
+      "severity": null
+    },
+    {
+      "check": "subtotal_plus_tax_equals_total",
+      "result": "pass",
+      "scope": "document",
+      "expected": "1176.00",
+      "actual": "1176.00",
+      "delta": "0.00",
+      "severity": null,
+      "note": "1 tax line(s) summed"
+    },
+    {
+      "check": "currency_glyph_matches_declared",
+      "result": "pass",
+      "scope": "document",
+      "actual": "EUR",
+      "severity": null
+    },
+    {
+      "check": "invoice_date_within_window",
+      "result": "pass",
+      "scope": "document",
+      "actual": "2026-07-30",
+      "severity": null,
+      "note": "6 days from run date"
+    },
+    {
+      "check": "invoice_date_before_due_date",
+      "result": "skipped",
+      "scope": "document",
+      "severity": null,
+      "reason": "due_date stated_absent"
+    }
+  ],
+  "review": {
+    "required": false,
+    "severity": "clean",
+    "reasons": [],
+    "notes": [
+      "due_date stated_absent",
+      "line_items absent_by_design"
+    ]
+  },
+  "provenance": {
+    "model": "claude-haiku-4-5",
+    "prompt_version": "p1",
+    "attempts": 1,
+    "tokens_in": 2380,
+    "tokens_out": 493,
+    "cost_usd": 0.000653,
+    "latency_ms": 3906,
+    "ingest_warnings": []
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "timestamp": "2026-08-05T20:01:49.633290+00:00",
+  "model": "claude-haiku-4-5",
+  "pred_dir": "output",
+  "gold_dir": "gold",
+  "aggregate": {
+    "documents": 3,
+    "field_accuracy": 1.0,
+    "status_accuracy": 1.0,
+    "document_perfect_rate": 1.0,
+    "line_exact_precision": 1.0,
+    "line_exact_recall": 1.0,
+    "auto_approval_rate": 1.0,
+    "false_clean_rate": 0.0,
+    "router_agreement": 1.0
+  },
+  "hard_failures": [],
+  "per_document": [
+    {
+      "source_file": "01_maple_tech_invoice_sample.pdf",
+      "field_total": 7,
+      "field_correct": 7,
+      "status_correct": 7,
+      "critical_ok": true,
+      "lines_gold": 3,
+      "lines_pred": 3,
+      "lines_exact": 3,
+      "got_severity": "clean",
+      "want_severity": "clean",
+      "router_ok": true,
+      "blocked_wrongly": false,
+      "validation_mismatches": [],
+      "errors": []
+    },
+    {
+      "source_file": "02_atlas_office_invoice_sample.png",
+      "field_total": 7,
+      "field_correct": 7,
+      "status_correct": 7,
+      "critical_ok": true,
+      "lines_gold": 3,
+      "lines_pred": 3,
+      "lines_exact": 3,
+      "got_severity": "clean",
+      "want_severity": "clean",
+      "router_ok": true,
+      "blocked_wrongly": false,
+      "validation_mismatches": [],
+      "errors": []
+    },
+    {
+      "source_file": "04_nordlicht_labs_invoice_sample.pdf",
+      "field_total": 7,
+      "field_correct": 7,
+      "status_correct": 7,
+      "critical_ok": true,
+      "lines_gold": 0,
+      "lines_pred": 0,
+      "lines_exact": 0,
+      "got_severity": "clean",
+      "want_severity": "clean",
+      "router_ok": true,
+      "blocked_wrongly": false,
+      "validation_mismatches": [],
+      "errors": []
+    }
+  ]
+}

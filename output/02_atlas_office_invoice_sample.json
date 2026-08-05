@@ -1,0 +1,229 @@
+{
+  "schema_version": "1.0",
+  "doc": {
+    "doc_id": "sha256:b90b26bdd059ce56de617ca09128f35b0f64eabf427e1a8eb1e48a820ed4606a",
+    "source_file": "02_atlas_office_invoice_sample.png",
+    "page_count": 1,
+    "input_kind": "image",
+    "text_layer": false,
+    "is_invoice": true
+  },
+  "fields": {
+    "vendor_name": {
+      "value": "Atlas Office Supply Co.",
+      "status": "present",
+      "source_text": "Atlas Office Supply Co.",
+      "page": 1
+    },
+    "invoice_number": {
+      "value": "AOS-77109",
+      "status": "present",
+      "source_text": "AOS-77109",
+      "page": 1
+    },
+    "invoice_date": {
+      "value": "2026-07-22",
+      "status": "present",
+      "source_text": "2026-07-22",
+      "page": 1
+    },
+    "due_date": {
+      "value": null,
+      "status": "stated_absent",
+      "source_text": "No due date is stated on this invoice.",
+      "page": 1
+    },
+    "currency": {
+      "value": "USD",
+      "status": "present",
+      "source_text": "USD",
+      "page": 1
+    },
+    "subtotal": {
+      "value": "1450.00",
+      "status": "present",
+      "source_text": "$1,450.00",
+      "page": 1
+    },
+    "total_amount": {
+      "value": "1569.63",
+      "status": "present",
+      "source_text": "$1,569.63",
+      "page": 1
+    }
+  },
+  "taxes": [
+    {
+      "label": "Sales tax",
+      "rate": "8.25%",
+      "amount": "119.63",
+      "base": "subtotal",
+      "source_text": "Sales tax (8.25%) $119.63"
+    }
+  ],
+  "line_items_status": "present",
+  "line_items": [
+    {
+      "index": 0,
+      "sku": "ST-240",
+      "description": "Ergonomic task chair",
+      "qty": "5",
+      "qty_unit": null,
+      "unit_price": "180.00",
+      "amount": "900.00"
+    },
+    {
+      "index": 1,
+      "sku": "DS-118",
+      "description": "Height-adjustable desk stand",
+      "qty": "2",
+      "qty_unit": null,
+      "unit_price": "210.00",
+      "amount": "420.00"
+    },
+    {
+      "index": 2,
+      "sku": "CB-025",
+      "description": "USB-C cable bundle",
+      "qty": "5",
+      "qty_unit": null,
+      "unit_price": "26.00",
+      "amount": "130.00"
+    }
+  ],
+  "validations": [
+    {
+      "check": "is_invoice",
+      "result": "pass",
+      "scope": "document",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.vendor_name",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.invoice_number",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.invoice_date",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.currency",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.total_amount",
+      "severity": null
+    },
+    {
+      "check": "line_qty_times_price",
+      "result": "pass",
+      "scope": "line[0]",
+      "expected": "900.00",
+      "actual": "900.00",
+      "delta": "0.00",
+      "severity": null
+    },
+    {
+      "check": "line_qty_times_price",
+      "result": "pass",
+      "scope": "line[1]",
+      "expected": "420.00",
+      "actual": "420.00",
+      "delta": "0.00",
+      "severity": null
+    },
+    {
+      "check": "line_qty_times_price",
+      "result": "pass",
+      "scope": "line[2]",
+      "expected": "130.00",
+      "actual": "130.00",
+      "delta": "0.00",
+      "severity": null
+    },
+    {
+      "check": "lines_sum_to_subtotal",
+      "result": "pass",
+      "scope": "document",
+      "expected": "1450.00",
+      "actual": "1450.00",
+      "delta": "0.00",
+      "severity": null
+    },
+    {
+      "check": "tax_rate_times_base",
+      "result": "pass",
+      "scope": "tax[0]",
+      "expected": "119.63",
+      "actual": "119.63",
+      "delta": "0.00",
+      "severity": null
+    },
+    {
+      "check": "subtotal_plus_tax_equals_total",
+      "result": "pass",
+      "scope": "document",
+      "expected": "1569.63",
+      "actual": "1569.63",
+      "delta": "0.00",
+      "severity": null,
+      "note": "1 tax line(s) summed"
+    },
+    {
+      "check": "currency_glyph_matches_declared",
+      "result": "pass",
+      "scope": "document",
+      "actual": "USD",
+      "severity": null
+    },
+    {
+      "check": "invoice_date_within_window",
+      "result": "pass",
+      "scope": "document",
+      "actual": "2026-07-22",
+      "severity": null,
+      "note": "14 days from run date"
+    },
+    {
+      "check": "invoice_date_before_due_date",
+      "result": "skipped",
+      "scope": "document",
+      "severity": null,
+      "reason": "due_date stated_absent"
+    }
+  ],
+  "review": {
+    "required": false,
+    "severity": "clean",
+    "reasons": [],
+    "notes": [
+      "due_date stated_absent"
+    ]
+  },
+  "provenance": {
+    "model": "claude-haiku-4-5",
+    "prompt_version": "p1",
+    "attempts": 1,
+    "tokens_in": 2380,
+    "tokens_out": 683,
+    "cost_usd": 0.000767,
+    "latency_ms": 6057,
+    "ingest_warnings": [
+      "No text layer: currency glyph cross-check will skip."
+    ]
+  }
+}

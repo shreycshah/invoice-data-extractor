@@ -1,0 +1,104 @@
+{
+  "source_file": "02_atlas_office_invoice_sample.png",
+  "labeler": "manual",
+  "input_kind": "image",
+  "is_invoice": true,
+  "fields": {
+    "vendor_name": {
+      "value": "Atlas Office Supply Co.",
+      "accept": [
+        "Atlas Office Supply",
+        "ATLAS OFFICE SUPPLY CO."
+      ],
+      "status": "present"
+    },
+    "invoice_number": {
+      "value": "AOS-77109",
+      "status": "present"
+    },
+    "invoice_date": {
+      "value": "2026-07-22",
+      "status": "present"
+    },
+    "due_date": {
+      "value": null,
+      "status": "stated_absent"
+    },
+    "currency": {
+      "value": "USD",
+      "status": "present"
+    },
+    "subtotal": {
+      "value": "1450.00",
+      "status": "present"
+    },
+    "total_amount": {
+      "value": "1569.63",
+      "status": "present"
+    }
+  },
+  "taxes": [
+    {
+      "label": "Sales tax",
+      "accept_labels": [
+        "Sales tax (8.25%)",
+        "Sales Tax"
+      ],
+      "rate": "0.0825",
+      "amount": "119.63",
+      "base": "subtotal"
+    }
+  ],
+  "line_items_status": "present",
+  "line_items": [
+    {
+      "index": 0,
+      "sku": "ST-240",
+      "description": "Ergonomic task chair",
+      "qty": "5",
+      "qty_unit": null,
+      "unit_price": "180.00",
+      "amount": "900.00"
+    },
+    {
+      "index": 1,
+      "sku": "DS-118",
+      "description": "Height-adjustable desk stand",
+      "qty": "2",
+      "qty_unit": null,
+      "unit_price": "210.00",
+      "amount": "420.00"
+    },
+    {
+      "index": 2,
+      "sku": "CB-025",
+      "description": "USB-C cable bundle",
+      "qty": "5",
+      "qty_unit": null,
+      "unit_price": "26.00",
+      "amount": "130.00"
+    }
+  ],
+  "expected_validations": {
+    "line_qty_times_price": "pass",
+    "lines_sum_to_subtotal": "pass",
+    "subtotal_plus_tax_equals_total": "pass",
+    "tax_rate_times_base": "pass",
+    "invoice_date_before_due_date": "skipped"
+  },
+  "expected_review": {
+    "severity": "clean",
+    "must_not_block": true,
+    "expected_notes": [
+      "due_date stated_absent",
+      "single extraction path"
+    ]
+  },
+  "notes": [
+    "ROUNDING TRAP: 1450.00 x 0.0825 = 119.625 exactly. The invoice shows 119.63, so the scorer requires ROUND_HALF_UP. ROUND_HALF_EVEN yields 119.62 and would falsely fail tax_rate_times_base on a clean document.",
+    "DUE DATE TRAP: 'Payable upon receipt.' is a payment term, not a date. The pipeline must NOT infer due_date = invoice_date. Correct label is stated_absent, evidenced by the explicit sentence 'No due date is stated on this invoice.'",
+    "PNG input with no text layer, so the text path cannot run. Expected agreement value on every field is single_path, and review severity must still be clean: a missing second opinion is a note, not a flag.",
+    "Vendor vs customer: both are US companies with similar formatting. vendor_name is under FROM (Boston, MA), customer under BILL TO (Portland, ME).",
+    "Line items carry SKUs in a dedicated Item column; matching should prefer sku exact over description fuzzy match."
+  ]
+}

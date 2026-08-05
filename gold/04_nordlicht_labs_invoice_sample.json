@@ -1,0 +1,33 @@
+{
+  "source_file": "04_nordlicht_labs_invoice_sample.pdf",
+  "labeler": "manual",
+  "input_kind": "pdf_text_layer",
+  "is_invoice": true,
+  "fields": {
+    "vendor_name": { "value": "Nordlicht Labs GmbH",
+                     "accept": ["Nordlicht Labs"], "status": "present" },
+    "invoice_number": { "value": "NL-40851", "status": "present" },
+    "invoice_date": { "value": "2026-07-30", "status": "present" },
+    "due_date": { "value": null, "status": "stated_absent" },
+    "currency": { "value": "EUR", "status": "present" },
+    "subtotal": { "value": "980.00", "status": "present" },
+    "total_amount": { "value": "1176.00", "status": "present" }
+  },
+  "taxes": [ { "label": "VAT", "accept_labels": ["VAT (20%)"],
+               "rate": "0.20", "amount": "196.00", "base": "subtotal" } ],
+  "line_items_status": "absent_by_design",
+  "line_items": [],
+  "expected_validations": {
+    "lines_sum_to_subtotal": "skipped",
+    "line_qty_times_price": "skipped",
+    "subtotal_plus_tax_equals_total": "pass",
+    "tax_rate_times_base": "pass",
+    "invoice_date_before_due_date": "skipped"
+  },
+  "expected_review": { "severity": "clean", "must_not_block": true, "expected_notes": [] },
+  "notes": [
+    "Invoice states item detail lives in the lab service record — absence of line items is valid, not an extraction failure.",
+    "Service order SO-9927 referenced but out of scope for v1 schema.",
+    "German vendor, Irish customer: vendor_name must not be confused with customer Orion Research Centre."
+  ]
+}

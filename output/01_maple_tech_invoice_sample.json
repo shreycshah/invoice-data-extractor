@@ -1,0 +1,243 @@
+{
+  "schema_version": "1.0",
+  "doc": {
+    "doc_id": "sha256:58a770be95fa52699fc12fb0950f2fc864a47413d03fa3010ede2a89b75475fa",
+    "source_file": "01_maple_tech_invoice_sample.pdf",
+    "page_count": 1,
+    "input_kind": "pdf_text_layer",
+    "text_layer": true,
+    "is_invoice": true
+  },
+  "fields": {
+    "vendor_name": {
+      "value": "MAPLE TECH SOLUTIONS INC.",
+      "status": "present",
+      "source_text": "MAPLE TECH SOLUTIONS INC.",
+      "page": 1
+    },
+    "invoice_number": {
+      "value": "INV-2026-0842",
+      "status": "present",
+      "source_text": "Invoice number INV-2026-0842",
+      "page": 1
+    },
+    "invoice_date": {
+      "value": "2026-07-15",
+      "status": "present",
+      "source_text": "Invoice date 2026-07-15",
+      "page": 1
+    },
+    "due_date": {
+      "value": "2026-08-14",
+      "status": "present",
+      "source_text": "Due date 2026-08-14",
+      "page": 1
+    },
+    "currency": {
+      "value": "CAD",
+      "status": "present",
+      "source_text": "Currency CAD",
+      "page": 1
+    },
+    "subtotal": {
+      "value": "2450.00",
+      "status": "present",
+      "source_text": "Subtotal $2,450.00",
+      "page": 1
+    },
+    "total_amount": {
+      "value": "2816.89",
+      "status": "present",
+      "source_text": "Total $2,816.89",
+      "page": 1
+    }
+  },
+  "taxes": [
+    {
+      "label": "GST",
+      "rate": "5%",
+      "amount": "122.50",
+      "base": "subtotal",
+      "source_text": "GST (5%) $122.50"
+    },
+    {
+      "label": "QST",
+      "rate": "9.975%",
+      "amount": "244.39",
+      "base": "subtotal",
+      "source_text": "QST (9.975%) $244.39"
+    }
+  ],
+  "line_items_status": "present",
+  "line_items": [
+    {
+      "index": 0,
+      "sku": null,
+      "description": "AI workstation setup and configuration",
+      "qty": "1",
+      "qty_unit": null,
+      "unit_price": "1650.00",
+      "amount": "1650.00"
+    },
+    {
+      "index": 1,
+      "sku": null,
+      "description": "Secure data migration service",
+      "qty": "4",
+      "qty_unit": "hrs",
+      "unit_price": "150.00",
+      "amount": "600.00"
+    },
+    {
+      "index": 2,
+      "sku": null,
+      "description": "Priority support package",
+      "qty": "1",
+      "qty_unit": null,
+      "unit_price": "200.00",
+      "amount": "200.00"
+    }
+  ],
+  "validations": [
+    {
+      "check": "is_invoice",
+      "result": "pass",
+      "scope": "document",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.vendor_name",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.invoice_number",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.invoice_date",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.currency",
+      "severity": null
+    },
+    {
+      "check": "critical_field_present",
+      "result": "pass",
+      "scope": "fields.total_amount",
+      "severity": null
+    },
+    {
+      "check": "line_qty_times_price",
+      "result": "pass",
+      "scope": "line[0]",
+      "expected": "1650.00",
+      "actual": "1650.00",
+      "delta": "0.00",
+      "severity": null
+    },
+    {
+      "check": "line_qty_times_price",
+      "result": "pass",
+      "scope": "line[1]",
+      "expected": "600.00",
+      "actual": "600.00",
+      "delta": "0.00",
+      "severity": null,
+      "note": "qty carried unit 'hrs'; arithmetic uses the numeric part"
+    },
+    {
+      "check": "line_qty_times_price",
+      "result": "pass",
+      "scope": "line[2]",
+      "expected": "200.00",
+      "actual": "200.00",
+      "delta": "0.00",
+      "severity": null
+    },
+    {
+      "check": "lines_sum_to_subtotal",
+      "result": "pass",
+      "scope": "document",
+      "expected": "2450.00",
+      "actual": "2450.00",
+      "delta": "0.00",
+      "severity": null
+    },
+    {
+      "check": "tax_rate_times_base",
+      "result": "pass",
+      "scope": "tax[0]",
+      "expected": "122.50",
+      "actual": "122.50",
+      "delta": "0.00",
+      "severity": null
+    },
+    {
+      "check": "tax_rate_times_base",
+      "result": "pass",
+      "scope": "tax[1]",
+      "expected": "244.39",
+      "actual": "244.39",
+      "delta": "0.00",
+      "severity": null
+    },
+    {
+      "check": "subtotal_plus_tax_equals_total",
+      "result": "pass",
+      "scope": "document",
+      "expected": "2816.89",
+      "actual": "2816.89",
+      "delta": "0.00",
+      "severity": null,
+      "note": "2 tax line(s) summed"
+    },
+    {
+      "check": "currency_glyph_matches_declared",
+      "result": "pass",
+      "scope": "document",
+      "actual": "CAD",
+      "severity": null
+    },
+    {
+      "check": "invoice_date_within_window",
+      "result": "pass",
+      "scope": "document",
+      "actual": "2026-07-15",
+      "severity": null,
+      "note": "21 days from run date"
+    },
+    {
+      "check": "invoice_date_before_due_date",
+      "result": "pass",
+      "scope": "document",
+      "expected": ">= 2026-07-15",
+      "actual": "2026-08-14",
+      "severity": null
+    }
+  ],
+  "review": {
+    "required": false,
+    "severity": "clean",
+    "reasons": [],
+    "notes": []
+  },
+  "provenance": {
+    "model": "claude-haiku-4-5",
+    "prompt_version": "p1",
+    "attempts": 1,
+    "tokens_in": 2359,
+    "tokens_out": 770,
+    "cost_usd": 0.000816,
+    "latency_ms": 5268,
+    "ingest_warnings": []
+  }
+}
