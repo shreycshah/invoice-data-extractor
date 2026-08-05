@@ -318,3 +318,10 @@ is one point in a larger space. Three worth prototyping against it:
      `route.py` make a graduated review-vs-clean decision instead of today's
      binary present/missing/illegible signal.
 
+## AI tools used
+
+- **Claude Sonnet** — ideation and architecting the solution: brainstorming and shaping the
+  pipeline, and the evaluation approach before any code was written.
+- **Claude Code** — prototyping: implementing the pipeline modules, iterating
+  on the prompt and validation logic, and help in writing this documentation.
+
