@@ -7,7 +7,7 @@ review / blocked.
 ## 1. Clone the project
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/shreycshah/invoice-data-extractor.git
 cd invoice-data-extractor
 ```
 
@@ -49,7 +49,7 @@ Optional overrides (also via `.env` or the shell environment):
 Run from the project root, with `src/` on the Python path:
 
 ```bash
-PYTHONPATH=src python3 src/cli.py <input_dir> <output_dir> [--model MODEL]
+python3 src/cli.py <input_dir> <output_dir> [--model MODEL]
 ```
 
 `<input_dir>` can be a directory of invoices or a single file. Supported
@@ -78,7 +78,7 @@ Compares the JSON in your output directory against hand-labelled files in
 and false-clean rate.
 
 ```bash
-PYTHONPATH=src python3 src/score.py --pred output --gold gold
+python3 src/score.py --pred output --gold gold
 ```
 
 **Where to look for the output:**

@@ -1,7 +1,7 @@
 # Invoice Data Extractor
  
 Feed it a PDF or image invoice, get back clean structured JSON — vendor, dates,
-totals, line items, taxes — plus a verdict on whether the numbers actually add
+totals, line items, taxes, also a verdict on whether the numbers actually add
 up and whether a human should double-check it before it gets paid.
  
 Setup and CLI usage: see [`USEME.md`](USEME.md). This doc is just the "how it
@@ -11,7 +11,7 @@ works and why" version.
 
 Five stages, each one only trusting the stage before it if the evidence checks out:
 
-1. **Ingest** (`ingest.py`) — every page gets rasterized to an image (that's
+1. **Ingest** (`ingest.py`) : every page gets rasterized to an image (that's
    the extraction path, always). If the PDF has a text layer, it's also
    pulled separately — not for extraction, just so we can sanity-check things
    like "does the currency symbol on the page match what the model claims."
@@ -272,7 +272,7 @@ is one point in a larger space. Three worth prototyping against it:
    `pdf_text_layer` documents, not scans or images, so it would sit alongside
    the vision-only path rather than replace it.
 
-## Things I'd explore if I had more time
+## Things I'd explore / improve if I had more time
 
 1. **End-to-end testing of the application.** There's no automated test suite
    today — correctness has been checked by eyeballing a 3-document smoke test
